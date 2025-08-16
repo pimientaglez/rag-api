@@ -7,14 +7,17 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production --legacy-peer-deps
+# Install all dependencies (including devDependencies for build)
+RUN npm ci --legacy-peer-deps
 
 # Copy source code
 COPY . .
 
 # Build the TypeScript code
 RUN npm run build
+
+# Remove devDependencies after build
+RUN npm prune --production --legacy-peer-deps
 
 # Create pdfs directory for temporary files
 RUN mkdir -p pdfs
