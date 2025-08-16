@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install all dependencies (including devDependencies for build)
-RUN npm ci --legacy-peer-deps
+RUN npm ci --force
 
 # Copy source code
 COPY . .
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Remove devDependencies after build
-RUN npm prune --production --legacy-peer-deps
+RUN npm prune --production --force
 
 # Create pdfs directory for temporary files
 RUN mkdir -p pdfs
