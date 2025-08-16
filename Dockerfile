@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install all dependencies (including devDependencies for build)
-RUN npm ci --force
+RUN npm ci
 
 # Copy source code
 COPY . .
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Remove devDependencies after build
-RUN npm prune --production --force
+RUN npm prune --production
 
 # Create pdfs directory for temporary files
 RUN mkdir -p pdfs
